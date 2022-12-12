@@ -18,7 +18,7 @@ app.use('/api/signin', auth)
 app.use('/api/me', me)
 app.use('/api/products', products)
 
-if (!process.env.vidly_jwtPrivateKey) {
+if (!process.jwtPrivateKey) {
     console.error("FATAL ERROR: jwtPrivateKey is not defined.");
     process.exit(1);
 }
