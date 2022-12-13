@@ -8,15 +8,23 @@ const auth = require('./routes/auth');
 const cors = require('cors')
 const me = require('./routes/me')
 const products = require('./routes/products')
+const path = require('path')
 
 app.use(express.json());
 
 app.use(cors());
+console.log(__dirname);
+
+app.use(express.static(path.join(__dirname, 'public/')));
 
 app.use('/api/signup', users)
 app.use('/api/signin', auth)
 app.use('/api/me', me)
 app.use('/api/products', products)
+
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/public/index.html'));
+});
 
 if (!process.env.jwtPrivateKey) {
     console.error("FATAL ERROR: jwtPrivateKey is not defined.");
