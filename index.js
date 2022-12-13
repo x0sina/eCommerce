@@ -18,15 +18,15 @@ if (!process.env.jwtPrivateKey) {
     console.error("FATAL ERROR: jwtPrivateKey is not defined.");
     process.exit(1);
 }
-app.use(express.static(path.join(__dirname, 'public/')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/signup', users)
 app.use('/api/signin', auth)
 app.use('/api/me', me)
 app.use('/api/products', products)
 
-app.get('*', (req,res) =>{
-    res.sendFile(path.join(__dirname+'/public/index.html'));
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 
