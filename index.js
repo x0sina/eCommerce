@@ -14,11 +14,11 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, 'public/')));
 if (!process.env.jwtPrivateKey) {
     console.error("FATAL ERROR: jwtPrivateKey is not defined.");
     process.exit(1);
 }
+app.use(express.static(path.join(__dirname, 'public/')));
 
 app.use('/api/signup', users)
 app.use('/api/signin', auth)
