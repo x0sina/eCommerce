@@ -13,9 +13,12 @@ const path = require('path')
 app.use(express.json());
 
 app.use(cors());
-console.log(__dirname);
 
 app.use(express.static(path.join(__dirname, 'public/')));
+if (!process.env.jwtPrivateKey) {
+    console.error("FATAL ERROR: jwtPrivateKey is not defined.");
+    process.exit(1);
+}
 
 app.use('/api/signup', users)
 app.use('/api/signin', auth)
@@ -26,10 +29,6 @@ app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+'/public/index.html'));
 });
 
-if (!process.env.jwtPrivateKey) {
-    console.error("FATAL ERROR: jwtPrivateKey is not defined.");
-    process.exit(1);
-}
 
 mongoose.connect(process.env.mongoDB)
     .then(() => console.log('Connected to MongoDB...'))
